@@ -23,11 +23,13 @@ define(
 
             render: function () {
                 this.renderContainer();
-                this.$el.append(this.container.$el);
             },
 
             renderContainer: function () {
-                this.container.render();
+                if (this.container) {
+                    this.container.render();
+                    this.$el.append(this.container.$el);
+                }
             }
         });
 

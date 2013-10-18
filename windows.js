@@ -4,6 +4,7 @@ require.config({
         'views': 'views/',
         'controllers': 'controllers/',
         'templates': 'templates/',
+        'objects': 'objects/',
         'utils': 'utils/',
 
         'jquery': 'libs/jquery-1.10.2.min',
@@ -27,15 +28,14 @@ define(
     'windowsJs',
     [
         'jquery',
-        'controllers/Desktop',
+        'objects/desktop',
         'utils/arrayToIcons'
     ],
-    function ($, DesktopController, arrayToIcons) {
+    function ($, desktop, arrayToIcons) {
         var runWindowsJs = function (whereToInject, desktopConfig) {
-            var desktopController = new DesktopController();
-            desktopController.appendChildren(arrayToIcons(desktopConfig.icons));
-            desktopController.getView().render();
-            $(whereToInject).append(desktopController.getView().$el);
+            desktop.appendChildren(arrayToIcons(desktopConfig.icons));
+            desktop.getView().render();
+            $(whereToInject).append(desktop.getView().$el);
         }
         return runWindowsJs;
     }

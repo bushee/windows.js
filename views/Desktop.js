@@ -7,11 +7,15 @@ define(
     function (ContainerView, IconListContainer, template) {
         var Desktop = ContainerView.extend({
             tagName: 'div',
-            id: 'desktop',
+            className: 'desktop',
             template: template,
 
             initialize: function () {
                 this.setContainer(new IconListContainer());
+            },
+
+            addWindow: function (windowController) {
+                this.$el.append(windowController.getView().$el);
             }
         });
         return Desktop;

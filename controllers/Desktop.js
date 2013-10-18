@@ -1,13 +1,14 @@
 define(
     [
         'controllers/ContainerController',
-        'controllers/Icon',
-        'views/Desktop'
+        'views/Desktop',
+        'objects/bus'
     ],
-    function (ContainerController, IconController, DesktopView) {
+    function (ContainerController, DesktopView, bus) {
         var DesktopController = ContainerController.extend({
             initialize: function () {
                 this.view = new DesktopView();
+                bus.on('windowCreate', this.view.addWindow, this.view);
             }
         });
 

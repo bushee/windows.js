@@ -1,10 +1,18 @@
 define(
     [
-        'backbone',
+        'views/ContainerView',
         'tpl!templates/Window._.html'
     ],
-    function (Backbone, template) {
-        var Window = Backbone.View.extend({
+    function (ContainerView, template) {
+        var Window = ContainerView.extend({
+            tagName: 'div',
+            className: 'window',
+            template: template,
+
+            render: function () {
+                this.$el.html(template());
+                this.renderContainer();
+            }
         });
         return Window;
     }

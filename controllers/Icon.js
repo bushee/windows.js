@@ -9,7 +9,7 @@ define(
             initialize: function (data, action) {
                 this.model = new IconModel(data);
                 this.view = new IconView({
-                    events: { 'click': action },
+                    action: action,
                     model: this.model
                 });
             }
