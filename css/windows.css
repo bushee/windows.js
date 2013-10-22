@@ -34,7 +34,7 @@ body {
     border-width: 1px;
     border-style: solid;
     border-color: #c0c0c0 #000 #000 #c0c0c0;
-	position: relative;
+	position: absolute;
 }
 
 .fill {
