@@ -26,6 +26,10 @@ body {
     vertical-align: middle;
 }
 
+.desktop .icon {
+    color: #fff;
+}
+
 .window {
     display: block;
     width: 400px;

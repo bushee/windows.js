@@ -6,8 +6,7 @@ define(
         var IconModel = Backbone.Model.extend({
             defaults: {
                 iconUrl: '',
-                title: '',
-                fontColor: ''
+                title: ''
             }
         });
 
