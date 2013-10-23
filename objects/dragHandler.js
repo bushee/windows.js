@@ -13,13 +13,17 @@ define(
 
             doDrag: function (event) {
                 if (dragHandler.draggedView) {
-                    var currentMousePosition = mouseCoords(event),
-                        mousePositionDiff = {
-                            x: currentMousePosition.x - dragHandler.lastMousePosition.x,
-                            y: currentMousePosition.y - dragHandler.lastMousePosition.y
-                        };
-                    dragHandler.draggedView.trigger('moveBy', mousePositionDiff);
-                    dragHandler.lastMousePosition = currentMousePosition;
+                    if (event.buttons !== 1) {
+                        dragHandler.draggedView = null;
+                    } else {
+                        var currentMousePosition = mouseCoords(event),
+                            mousePositionDiff = {
+                                x: currentMousePosition.x - dragHandler.lastMousePosition.x,
+                                y: currentMousePosition.y - dragHandler.lastMousePosition.y
+                            };
+                        dragHandler.draggedView.trigger('moveBy', mousePositionDiff);
+                        dragHandler.lastMousePosition = currentMousePosition;
+                    }
                 }
             },
 
@@ -29,8 +33,10 @@ define(
         },
 
         startDragging = function (event, draggedView) {
-            dragHandler.lastMousePosition = mouseCoords(event);
-            dragHandler.draggedView = draggedView;
+            if (event.buttons === 1) {
+                dragHandler.lastMousePosition = mouseCoords(event);
+                dragHandler.draggedView = draggedView;
+            }
         };
 
         bus.on('windowDragStart', startDragging);
