@@ -1,10 +1,10 @@
 define(
-	[
+    [
         'controllers/Window',
         'exceptions/OpenWindowException'
     ],
-	function (WindowController, OpenWindowException) {
-		var actionHandler = {
+    function (WindowController, OpenWindowException) {
+        var actionHandler = {
             handleEvent: function (view, action, event) {
                 if (typeof action === 'function') {
                     action.apply(event, view);
@@ -25,7 +25,7 @@ define(
                     throw new OpenWindowException('Missing window data.');
                 }
             }
-		};
-		return actionHandler;
-	}
+        };
+        return actionHandler;
+    }
 );
