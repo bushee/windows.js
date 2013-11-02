@@ -1,10 +1,10 @@
 define(
     [
         'backbone',
-        'controllers/Window',
+        'objects/eventHandler',
         'tpl!templates/Icon._.html'
     ],
-    function (Backbone, WindowController, template) {
+    function (Backbone, eventHandler, template) {
         var IconView = Backbone.View.extend({
             tagName: 'li',
             className: 'icon',
@@ -24,22 +24,7 @@ define(
             },
 
             handleClick: function (event) {
-                if (typeof this.action === 'function') {
-                    this.action.apply(event, this);
-                } else if (this.action.event) {
-                    switch (this.action.event) {
-                        case 'openWindow':
-                            this.openWindow();
-                            break;
-                    }
-                }
-            },
-
-            openWindow: function () {
-                if (this.action.type && this.action.content) {
-                    var window = new WindowController();
-                    window.getView().render();
-                }
+                eventHandler.handleEvent(this, this.action, event);
             }
         });
         return IconView;
