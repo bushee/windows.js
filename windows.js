@@ -3,6 +3,7 @@ require.config({
         'models': 'models/',
         'views': 'views/',
         'controllers': 'controllers/',
+        'exceptions': 'exceptions/',
         'templates': 'templates/',
         'objects': 'objects/',
         'utils': 'utils/',

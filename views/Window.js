@@ -19,7 +19,7 @@ define(
             },
 
             render: function () {
-                this.$el.html(template());
+                this.$el.html(template(this.model.toJSON()));
                 this.renderContainer();
             },
 
