@@ -8,11 +8,11 @@ require.config({
         'objects': 'src/objects/',
         'utils': 'src/utils/',
 
-        'jquery': 'libs/jquery-1.10.2.min',
-        'backbone': 'libs/backbone-min',
-        'underscore': 'libs/underscore-min',
-        'tpl': 'libs/require-tpl',
-        'text': 'libs/require-text'
+        'jquery': 'libs/jquery/jquery.min',
+        'backbone': 'libs/backbone/backbone-min',
+        'underscore': 'libs/underscore/underscore-min',
+        'tpl': 'libs/requirejs-tpl/tpl',
+        'text': 'libs/requirejs-text/text'
     },
     shim: {
         'backbone': {
