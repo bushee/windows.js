@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         concat: {
             dist: {
                 src: ['src/**/*.js'],
-                dest: 'bin/windows.js'
+                dest: 'dist/windows.js'
             }
         }
     });
