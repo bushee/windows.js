@@ -29,8 +29,14 @@ module.exports = function (grunt) {
                 atBegin: true,
                 debounceDelay: 500
             },
-            files: sourceFiles,
-            tasks: ['build']
+            js: {
+                files: sourceFiles,
+                tasks: ['buildJs']
+            },
+            less: {
+                files: ['less/**/*.less'],
+                tasks: ['buildLess']
+            }
         },
         less: {
             options: {
@@ -50,5 +56,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('build', ['concat', 'uglify', 'less'])
+    grunt.registerTask('buildJs', ['concat', 'uglify']);
+    grunt.registerTask('buildLess', ['less']);
+    grunt.registerTask('build', ['buildJs', 'buildLess'])
 };
