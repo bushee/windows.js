@@ -4,13 +4,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-angular-templates');
 
-    var sourceFiles = ['src/main.js', 'src/**/*.js'];
+    var jsSourceFiles = ['src/main.js', 'src/**/*.js'],
+        templatesSourceFiles = ['src/templates/**/*.html'];
 
     grunt.initConfig({
         concat: {
             dist: {
-                src: sourceFiles,
+                src: jsSourceFiles,
                 dest: 'dist/windows.js'
             }
         },
@@ -20,22 +22,26 @@ module.exports = function (grunt) {
                 sourceMapIncludeSources: true
             },
             dist: {
-                src: sourceFiles,
+                src: jsSourceFiles,
                 dest: 'dist/windows.min.js'
             }
         },
-        watch: {
+        ngtemplates: {
             options: {
-                atBegin: true,
-                debounceDelay: 500
+                htmlmin: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                }
             },
-            js: {
-                files: sourceFiles,
-                tasks: ['buildJs']
-            },
-            less: {
-                files: ['less/**/*.less'],
-                tasks: ['buildLess']
+            dist: {
+                options: {
+                    module: 'windows.js',
+                    url: function (url) {
+                        return url.replace(/^src\//, '');
+                    }
+                },
+                src: templatesSourceFiles,
+                dest: 'src/templates/templates.js'
             }
         },
         less: {
@@ -53,10 +59,24 @@ module.exports = function (grunt) {
                 src: 'less/index.less',
                 dest: 'dist/windows.css'
             }
+        },
+        watch: {
+            options: {
+                atBegin: true,
+                debounceDelay: 500
+            },
+            js: {
+                files: jsSourceFiles.concat(templatesSourceFiles),
+                tasks: ['buildJs']
+            },
+            less: {
+                files: ['less/**/*.less'],
+                tasks: ['buildLess']
+            }
         }
     });
 
-    grunt.registerTask('buildJs', ['concat', 'uglify']);
+    grunt.registerTask('buildJs', ['ngtemplates', 'concat', 'uglify']);
     grunt.registerTask('buildLess', ['less']);
     grunt.registerTask('build', ['buildJs', 'buildLess'])
 };

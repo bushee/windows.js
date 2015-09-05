@@ -8,6 +8,7 @@
         "grunt-contrib-concat": "v0.5.1",
         "grunt-contrib-watch": "v0.6.1",
         "grunt-contrib-uglify": "v0.9.1",
-        "grunt-contrib-less": "0.11.4"
+        "grunt-contrib-less": "0.11.4",
+        "grunt-angular-templates": "v0.5.7"
     }
 }
