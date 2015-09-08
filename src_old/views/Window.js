@@ -6,8 +6,6 @@ define(
     ],
     function (ContainerView, bus, template) {
         var Window = ContainerView.extend({
-            tagName: 'div',
-            className: 'window',
             template: template,
 
             events: {
@@ -16,11 +14,6 @@ define(
 
             initialize: function () {
                 this.on('moveBy', this.doDrag, this);
-            },
-
-            render: function () {
-                this.$el.html(template(this.model.toJSON()));
-                this.renderContainer();
             },
 
             dragStart: function (event) {
