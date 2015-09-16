@@ -4,15 +4,19 @@ angular.module('windows.js').directive('draggable', function () {
         controller: 'DraggableCtrl',
         require: '?^^dragArea',
         link: function (scope, element, attrs, dragAreaCtrl) {
-            var position, normalizePosition;
+            var parsePosition, getCurrentPosition, normalizePosition;
 
-            position = function (element, cssParam) {
+            parsePosition = function (cssParam) {
                 return parseInt(element.css(cssParam), 10) || 0;
             };
-            scope.draggablePosition = {
-                x: position(element, 'left'),
-                y: position(element, 'top')
+            getCurrentPosition = function () {
+                return {
+                    x: parsePosition('left'),
+                    y: parsePosition('top')
+                }
             };
+
+            scope.draggablePosition = getCurrentPosition();
 
             normalizePosition = function (position) {
                 return position;
@@ -28,9 +32,16 @@ angular.module('windows.js').directive('draggable', function () {
 
             if (dragAreaCtrl) {
                 normalizePosition = function (position) {
-                    position.x = Math.min(Math.max(position.x, 0), dragAreaCtrl.getWidth() - element[0].offsetWidth);
-                    position.y = Math.min(Math.max(position.y, 0), dragAreaCtrl.getHeight() - element[0].offsetHeight);
-                }
+                    position.x = Math.max(0, Math.min(position.x, dragAreaCtrl.getWidth() - element[0].offsetWidth));
+                    position.y = Math.max(0, Math.min(position.y, dragAreaCtrl.getHeight() - element[0].offsetHeight));
+                    return position;
+                };
+
+                dragAreaCtrl.onResize(function () {
+                    scope.$apply(function () {
+                        scope.draggablePosition = normalizePosition(getCurrentPosition());
+                    });
+                });
             }
         }
     };
